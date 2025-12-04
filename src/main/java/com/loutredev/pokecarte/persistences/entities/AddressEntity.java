@@ -1,0 +1,53 @@
+package com.loutredev.pokecarte.persistences.entities;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "address")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class AddressEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 20)
+    private String street;
+
+    @Column(nullable = false, length = 80)
+    private String city;
+
+    @Column(nullable = false, length = 10)
+    private String zipCode;
+
+    @Column(nullable = false, length = 80)
+    private String country;
+
+    @OneToOne(mappedBy = "address")
+    private CustomerEntity customer;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+}
