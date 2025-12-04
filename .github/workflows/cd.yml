@@ -44,7 +44,7 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           push: true
-          tags: peacepilou/spring-app:${{ steps.set_tag.outputs.tag }}
+          tags: mawele/pokecarte-api:${{ steps.set_tag.outputs.tag }}
 
   deploy:
     name: 🚀 Deploy to VPS
@@ -55,7 +55,7 @@ jobs:
       - name: Set up SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.VPS_PRIVATE_KEY_CD_STAGING }}" > ~/.ssh/id_ed25519_staging
+          echo "${{ secrets.VPS_PRIVATE_KEY }}" > ~/.ssh/id_ed25519_staging
           chmod 600 ~/.ssh/id_ed25519_staging
 
       - name: SSH to VPS and deploy
