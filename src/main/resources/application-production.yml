@@ -1,16 +1,49 @@
 spring:
+  application:
+    name: Pokecarte
+
   datasource:
-    url: jdbc:mysql://${DB_HOST_PROD}:${DB_PORT_PROD}/${DB_NAME_PROD}?createDatabaseIfNotExist=true
+    url: jdbc:mysql://${DB_HOST_DEV}:${DB_PORT_DEV}/${DB_NAME_DEV}?createDatabaseIfNotExist=true
     username: ${DB_USER_PROD}
     password: ${DB_PASSWORD_PROD}
 
-springdoc:
-  swagger-ui:
-    enabled: true
+  profiles:
+    active:
+      - development
+
+  config:
+    import:
+      - "configtree:./"
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: never
+
+  mvc:
+    throw-exception-if-no-handler-found: true
+
+  web:
+    resources:
+      add-mappings: false
+
+logging:
+  level:
+    org:
+      springframework:
+        web: debug
 
 cors:
   allowedOrigins: ${CLIENT_URL_PROD}
 
-logging:
-  level:
-    com.backend_project_template: INFO
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION_MS}
