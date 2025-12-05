@@ -1,49 +1,16 @@
 spring:
-  application:
-    name: Pokecarte
-
   datasource:
     url: jdbc:mysql://${DB_HOST_STAGING}:${DB_PORT_STAGING}/${DB_NAME_STAGING}?createDatabaseIfNotExist=true
     username: ${DB_USER_STAGING}
     password: ${DB_PASSWORD_STAGING}
 
-  profiles:
-    active:
-      - development
-
-  config:
-    import:
-      - "configtree:./"
-
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: create-drop
-    properties:
-      hibernate:
-        format_sql: true
-    defer-datasource-initialization: true
-
-  sql:
-    init:
-      mode: never
-
-  mvc:
-    throw-exception-if-no-handler-found: true
-
-  web:
-    resources:
-      add-mappings: false
-
-logging:
-  level:
-    org:
-      springframework:
-        web: debug
+springdoc:
+  swagger-ui:
+    enabled: true
 
 cors:
   allowedOrigins: ${CLIENT_URL_STAGING}
 
-jwt:
-  secret: ${JWT_SECRET}
-  expiration: ${JWT_EXPIRATION_MS}
+logging:
+  level:
+    com.backend_project_template: INFO
